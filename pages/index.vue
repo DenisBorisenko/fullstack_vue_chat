@@ -4,33 +4,64 @@
     justify-center
     align-center
   >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <v-btn @click="message">
-        NEW MESSAGE
-      </v-btn>
+    <v-flex xs12 sm8>
+     <v-card min-width="400">
+       <v-card-title>
+         <h1>Nuxt chat</h1>
+       </v-card-title>
+        <v-card-text>
+         <v-form ref="form" v-model="valid" lazy-validation>
+
+           <v-text-field v-model="name" :counter="16" :rules="nameRules" label="Имя" required></v-text-field>
+
+           <v-text-field v-model="room" :rules="roomRules" label="Введите комнату" required></v-text-field>
+
+           <v-btn :disabled="!valid" color="primary" class="mr-4" @click="submit">Войти</v-btn>
+
+         </v-form>
+        </v-card-text>
+     </v-card>
     </v-flex>
   </v-layout>
 </template>
-
 <script>
+  import {mapMutations} from 'vuex'
+    export default {
 
-export default {
-    sockets:{
-        connect:function(){
-            console.log('client io connected')
+        layout:"empty",
+        head:{
+            title:'welcome'
         },
-    },
-    methods:{
-        message(){
+        sockets:{
+            connect:function(){
+                console.log('client io connected')
+            },
+        },
+        data: () => ({
+            valid: true,
+            name: '',
+            nameRules: [
+                v => !!v || 'Введите имя',
+                v => (v && v.length <= 16) || 'Имя не должно превыщать 16 симолов',
+            ],
+            room: '',
+            roomRules: [
+                v => !!v || 'Введите комнату',
+            ],
+        }),
+        methods: {
+            ...mapMutations(['setUser']),
+            submit () {
+                if (this.$refs.form.validate()) {
+                    const user = {
+                        name: this.name,
+                        room: this.room
+                    };
+                this.setUser(user)
+                this.$router.push('/chat')
 
-            this.$socket.emit('createMessage',{
-                text:'Frome client'
-            });
+                }
+            }
         },
     }
-}
 </script>
