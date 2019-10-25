@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app v-model="drawer" mobile-break-point="650">
       <v-list subheader>
         <v-subheader>Список людей в комнате</v-subheader>
 
@@ -28,7 +28,7 @@
       <v-toolbar-title>Чат комнаты {{user.room}}</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
+    <v-content style="height:100%">
       <nuxt/>
     </v-content>
 
