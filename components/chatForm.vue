@@ -22,7 +22,6 @@
                   if(typeof(data) === "string"){
                       console.log(data)
                   } else {
-                      console.log('im here')
                       this.text = " "
                   }
 
