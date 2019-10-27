@@ -1,6 +1,6 @@
 <template>
   <div class="c-wrap">
-    <div class="c-chat">
+    <div class="c-chat" ref="block">
       <Message
         v-for="m in messages"
         :key="m.text"
@@ -51,6 +51,14 @@
       head(){
         return {title:`Комната ${this.user.room}`};
       },
+      watch:{
+          messages(){
+              setTimeout(() => {
+                  this.$refs.block.scrollTop = this.$refs.block.scrollHeight
+              })
+          }
+      },
+
       components:{ChatForm, Message },
       middleware:['chat'],
       computed:mapState(['user','messages']),
