@@ -10,19 +10,20 @@
 </template>
 <script>
   export default {
-      data:()=>{
-
-      },
+      data:()=>({
+        text:''
+      }),
       methods:{
           send(){
               this.$socket.emit('createMessage',{
-                  test:this.text,
-                  id:this.store.state.user.id,
+                  text:this.text,
+                  id:this.$store.state.user.id,
               },data=>{
                   if(typeof(data) === "string"){
                       console.log(data)
                   } else {
-                      this.text = "";
+                      console.log('im here')
+                      this.text = " "
                   }
 
               })
