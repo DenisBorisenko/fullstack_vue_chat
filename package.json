@@ -21,7 +21,6 @@
     "vue-socket.io": "^3.0.7"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
-    "@nuxtjs/vuetify": "^1.0.0"
+    "nodemon": "^1.18.9"
   }
 }
